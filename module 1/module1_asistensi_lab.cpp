@@ -66,6 +66,7 @@ void SearchDataBarang()
 
   cout << "Masukan nama Barang yang ingin di cari: ";
   getline(cin, namaBarang);
+  cin.ignore();
 
   bool found = false;
   for (size_t i = 0; i < dataBarang.size(); i++)
@@ -89,17 +90,38 @@ void SearchDataBarang()
 
 int main()
 {
-  int pilihan
+  int pilihan;
 
-      do
+  do
   {
     cout << "|| Program Manajemen Penjualan ||" << endl;
-    cout << "1. Menambah Data Barang "
-  }
-  while ()
-    ;
+    cout << "1. Menambah Data Barang" << endl;
+    cout << "2. Menampilkan Data Barang" << endl;
+    cout << "3. Menampilkan beberapa data barang" << endl;
+    cout << "4. Keluar" << endl;
+    cout << "Masukan Pilihan: ";
+    cin >> pilihan;
 
-  // tambahBarang();
-  // viewDataBarang();
+    cin.ignore();
+    switch (pilihan)
+    {
+    case 1:
+      tambahBarang();
+      break;
+    case 2:
+      viewDataBarang();
+      break;
+    case 3:
+      SearchDataBarang();
+      break;
+    case 4:
+      cout << "Terima kasih sudah menggunakan program ini";
+      break;
+    default:
+      cout << "Pilihan tidak Valid";
+      break;
+    }
+
+  } while (pilihan != 4);
   return 0;
 }

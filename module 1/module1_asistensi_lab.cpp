@@ -19,6 +19,8 @@ struct Barang
 
 vector<Barang> dataBarang;
 
+
+
 void tambahBarang()
 {
   Barang barangBaru;

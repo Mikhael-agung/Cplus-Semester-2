@@ -17,10 +17,8 @@ struct Barang
   struct detailBarang detail;
 };
 
-vector<Barang> dataBarang;
-
-
-
+  vector<Barang> dataBarang;
+  
 void tambahBarang()
 {
   Barang barangBaru;
@@ -62,6 +60,34 @@ void viewDataBarang()
   }
 }
 
+void viewBarang()
+{
+  if (dataBarang.empty())
+  {
+    cout << "Barang masih kosong!!" << endl;
+    return;
+  }
+
+  size_t jumlahBarangDitampilkan;
+  cout << "Berapa banyak barang yang ingin ditampilkan: ";
+  cin >> jumlahBarangDitampilkan;
+
+  if (jumlahBarangDitampilkan > dataBarang.size())
+  {
+    cout << "Jumlah barang yang ingin ditampilkan melebihi jumlah barang yang tersedia." << endl;
+    return;
+  }
+
+  cout << "========================" << endl;
+  cout << "|| No || Nama Barang || Stock ||" << endl;
+  cout << "========================" << endl;
+
+  for (size_t i = 0; i < jumlahBarangDitampilkan; i++)
+  {
+    cout << "|| " << setw(2) << i + 1 << " || " << setw(8) << dataBarang[i].nama << " || " << setw(5) << dataBarang[i].detail.stock << " ||" << endl;
+  }
+}
+
 void SearchDataBarang()
 {
   string namaBarang;
@@ -100,6 +126,7 @@ int main()
     cout << "1. Menambah Data Barang" << endl;
     cout << "2. Menampilkan Data Barang" << endl;
     cout << "3. Menampilkan beberapa data barang" << endl;
+    cout << "4. Cari barang yang di inginkan" << endl;
     cout << "4. Keluar" << endl;
     cout << "Masukan Pilihan: ";
     cin >> pilihan;
@@ -114,7 +141,7 @@ int main()
       viewDataBarang();
       break;
     case 3:
-      SearchDataBarang();
+      viewBarang();
       break;
     case 4:
       cout << "Terima kasih sudah menggunakan program ini";

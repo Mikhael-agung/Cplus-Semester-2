@@ -2,6 +2,9 @@
 
 using namespace std;
 
+// Nama: Mikhael Agung Yoga Pratama
+// NIK : 06.2023.1.07651
+
 typedef struct Bilangan
 {
     int nilai;

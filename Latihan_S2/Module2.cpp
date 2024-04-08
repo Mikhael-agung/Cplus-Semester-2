@@ -14,12 +14,33 @@ struct identitasPasien{
 
 // untuk menambahkan pasien
 void addPasien(identitasPasien*& head, int id, string nama, int usia, string penyakit){
+    // Validasi ID apakah sudah pernah terdaftar sebelumnya
+    identitasPasien* current = head;
+    while(current != nullptr){
+        if(current->ID == id){
+            cout << "Maaf ID yang anda masukan sudah terdaftar." << endl;
+            return;
+        }
+        current = current ->next;
+    }
+
     identitasPasien* pasienBaru = new identitasPasien;
     pasienBaru ->ID = id;
     pasienBaru ->nama = nama;
     pasienBaru ->usia = usia;
     pasienBaru ->diagnosis = penyakit;
     head = pasienBaru;
+
+    if (head == nullptr){
+        head = pasienBaru;
+    } else {
+        current = head;
+        while(current ->next != nullptr){
+            current = current ->next;
+        }
+        current ->next = pasienBaru;
+    }
+    
 }
 
 // untuk menampilkan data pasien
@@ -27,9 +48,11 @@ void viewPasien(identitasPasien* head){
     identitasPasien* current = head;
     while(current != nullptr){
         cout << "|| ID Pasien || Nama Pasien || Usia || Diagnosa ||" << endl;
+        while (current != nullptr){
         cout << setw(10) << current->ID << setw(10) << current ->nama << setw(10) << current ->usia << setw(10) << current ->diagnosis << endl;
-        cout << "==========================================" << endl;
         current = current ->next;
+        }
+        cout << "==========================================" << endl;
     }
 }
 

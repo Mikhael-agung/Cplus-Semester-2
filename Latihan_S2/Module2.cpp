@@ -56,6 +56,22 @@ void viewPasien(identitasPasien* head){
     }
 }
 
+void searchPasien(identitasPasien* head, int id, string nama){
+    identitasPasien* current = head;
+    bool found = false;
+    cout << "|| ID Pasien || Nama Pasien || Usia || Diagnosa ||" << endl;
+    while(current != nullptr){
+        if(current ->ID == id && current ->nama == nama){
+            cout << "ID pasien: " << current ->ID << endl;
+            cout << "Nama: " << current ->nama << endl;
+            cout << "Usia: " << current ->usia << endl;
+            cout << "Diagnosis: " << current ->diagnosis << endl;
+            found = true;
+        }
+        current = current ->next;
+    }
+}
+
 
 int main (){
     int pilihan;

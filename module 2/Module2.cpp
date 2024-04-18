@@ -57,12 +57,13 @@ void viewPasien(identitasPasien *head)
         cout << "|| ID Pasien || Nama Pasien || Usia || Diagnosa ||" << endl;
         while (current != nullptr)
         {
-            cout << setw(10) << current->ID << setw(10) << current->nama << setw(10) << current->usia << setw(10) << current->diagnosis << endl;
+            cout << setw(10) << current->ID << setw(10) << current->nama << setw(10) << current->usia << setw(14) << current->diagnosis << endl;
             current = current->next;
         }
         cout << "==========================================" << endl;
 }
 
+// untuk mencari data pasien 
 void searchPasien(identitasPasien *head, int id, string nama)
 {
     identitasPasien *current = head;
@@ -72,10 +73,7 @@ void searchPasien(identitasPasien *head, int id, string nama)
     {
         if (current->ID == id && current->nama == nama)
         {
-            cout << "ID pasien: " << current->ID << endl;
-            cout << "Nama: " << current->nama << endl;
-            cout << "Usia: " << current->usia << endl;
-            cout << "Diagnosis: " << current->diagnosis << endl;
+            cout << setw(10) << current->ID << setw(10) << current->nama << setw(10) << current->usia << setw(10) << current->diagnosis << endl;
             found = true;
         }
         current = current->next;
@@ -86,8 +84,33 @@ void searchPasien(identitasPasien *head, int id, string nama)
     }
 }
 
+void deletePasien(identitasPasien *&head, int id){
+
+    identitasPasien *current = head;
+    identitasPasien *prev = nullptr;
+
+    while(current != nullptr && current ->ID != id){
+        prev = current;
+        current = current ->next;
+    }
+
+    if(current == nullptr){
+        cout << "Pasien yang anda cari tidak ada, Mohon cek kembali data yang anda masukan";
+        return;
+    }
+
+    if(prev == nullptr){
+        head = current ->next;
+    }else{
+        prev->next = current ->next;
+    }
+
+    delete current;
+    cout << "Pasien dengan ID " << id << "Berhasil di hapus" << endl;
+}
+
 int main()
-{
+{11
     int pilihan;
     int id, usia;
     string nama, diagnosis;
@@ -120,11 +143,18 @@ int main()
             break;
 
         case 3:
-
+            cout << "Masukan ID pasien: ";
+            cin >> id;
+            cin.ignore();
+            cout << "Masukan nama pasien: ";
+            getline(cin, nama);
+            searchPasien(head, id, nama);
             break;
 
         case 4:
-
+            cout << "Masukan ID pasien yang ingin di hapus: ";
+            cin >> id;
+            deletePasien(head, id);
             break;
 
         case 5:
@@ -136,6 +166,13 @@ int main()
             break;
         }
     } while (pilihan != 5);
+
+    identitasPasien *current = head;
+    while (current != nullptr){
+        identitasPasien *temp =current;
+        current = current-> next;
+        delete temp;
+    }
 
     return 0;
 }

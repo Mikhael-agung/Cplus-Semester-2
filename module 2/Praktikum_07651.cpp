@@ -113,7 +113,7 @@ int main()
         cout << "4. Exit" << endl;
         cout << "Masukan Pilihan: ";
         cin >> pilihan;
-        cin.ignore(); // Clear the input buffer
+        cin.ignore(); 
 
         switch (pilihan)
         {
@@ -122,15 +122,15 @@ int main()
             myPlaylist.viewPlaylist();
             break;
         case 2:
-            cout << "Enter the judul of the new song: ";
+            cout << "Masukan judul lagu: ";
             getline(cin, judul);
-            cout << "Enter the artis of the new song: ";
+            cout << "Masukan nama Artis: ";
             getline(cin, artis);
             myPlaylist.addSong(judul, artis);
-            cout << "Song added to the playlist." << endl;
+            cout << "Lagu di tambahkan kedalam playlist." << endl;
             break;
         case 3:
-            cout << "Enter the index of the song to remove: ";
+            cout << "Masukan nomor lagu untuk menghapusnya: ";
             cin >> index;
             myPlaylist.removeSong(index);
             break;
@@ -138,7 +138,7 @@ int main()
             cout << "Exiting program." << endl;
             break;
         default:
-            cout << "Invalid pilihan. Please try again." << endl;
+            cout << "Pilihan tidak ada, silakan coba lagi." << endl;
         }
     } while (pilihan != 4);
 

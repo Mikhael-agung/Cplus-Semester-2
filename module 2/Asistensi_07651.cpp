@@ -54,16 +54,16 @@ void addPasien(identitasPasien *&head, int id, string nama, int usia, string dia
 void viewPasien(identitasPasien *head)
 {
     identitasPasien *current = head;
-    cout << "|| ID Pasien || Nama Pasien || Usia || Diagnosa ||" << endl;
-    while (current != nullptr)
-    {
-        cout << setw(10) << current->ID << setw(10) << current->nama << setw(10) << current->usia << setw(14) << current->diagnosis << endl;
-        current = current->next;
-    }
-    cout << "==========================================" << endl;
+        cout << "|| ID Pasien || Nama Pasien || Usia || Diagnosa ||" << endl;
+        while (current != nullptr)
+        {
+            cout << setw(10) << current->ID << setw(10) << current->nama << setw(10) << current->usia << setw(14) << current->diagnosis << endl;
+            current = current->next;
+        }
+        cout << "==========================================" << endl;
 }
 
-// untuk mencari data pasien
+// untuk mencari data pasien 
 void searchPasien(identitasPasien *head, int id, string nama)
 {
     identitasPasien *current = head;
@@ -84,31 +84,25 @@ void searchPasien(identitasPasien *head, int id, string nama)
     }
 }
 
-void deletePasien(identitasPasien *&head, int id)
-{
+void deletePasien(identitasPasien *&head, int id){
 
     identitasPasien *current = head;
     identitasPasien *prev = nullptr;
 
-    while (current != nullptr && current->ID != id)
-    {
+    while(current != nullptr && current ->ID != id){
         prev = current;
-        current = current->next;
+        current = current ->next;
     }
 
-    if (current == nullptr)
-    {
+    if(current == nullptr){
         cout << "Pasien yang anda cari tidak ada, Mohon cek kembali data yang anda masukan";
         return;
     }
 
-    if (prev == nullptr)
-    {
-        head = current->next;
-    }
-    else
-    {
-        prev->next = current->next;
+    if(prev == nullptr){
+        head = current ->next;
+    }else{
+        prev->next = current ->next;
     }
 
     delete current;
@@ -174,10 +168,9 @@ int main()
     } while (pilihan != 5);
 
     identitasPasien *current = head;
-    while (current != nullptr)
-    {
-        identitasPasien *temp = current;
-        current = current->next;
+    while (current != nullptr){
+        identitasPasien *temp =current;
+        current = current-> next;
         delete temp;
     }
 

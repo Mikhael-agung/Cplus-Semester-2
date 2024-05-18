@@ -27,13 +27,48 @@ void viewBarang_07651(stack<Barang_07651> s)
     }
 
     cout << "List Barang Yang ada di gudang." << endl;
-    cout << "No. || Nama Barang || Jumlah Barang" << endl;
+    cout << "No. || Nama Barang ||" << endl;
     for (int i = temp.size() - 1; i >= 0; i--)
     {
-        cout << (temp.size() - i) << setw(20) << temp[i].nama_07651 << setw(10) << temp[i].jumlah_07651 << endl;
+        cout << (temp.size() - i) << setw(15) << temp[i].nama_07651 << endl;
         s.push(temp[i]);
     }
 }
+
+void ambilBarang(stack<Barang_07651>& Gudang){
+    if(!Gudang.empty()) {
+        string namaBarang;
+
+        cin.ignore();
+        cout << "Masukan nama barang yang akan di ambil: ";
+        getline(cin, namaBarang);
+
+        bool found = false;
+        stack<Barang_07651> temp;
+        
+        while(!Gudang.empty()){
+            Barang_07651 spec = Gudang.top();
+            Gudang.pop();
+
+            if(spec.nama_07651 == namaBarang){
+                cout << "Barang " << spec.nama_07651 << "Berhasil di ambil. ";
+                found = true;
+                break;  
+            } else {
+                temp.push(spec);
+            }
+        }
+
+        while(!Gudang.empty()){
+            Gudang.push(temp.top());
+            temp.pop();
+        }
+
+        if(!found) {
+            cout << "Barang yang anda cari tidak ada";
+        }
+    }
+} 
 
 int main()
 {
@@ -58,9 +93,6 @@ int main()
             cin.ignore();
             cout << "Masukan Nama Barang: ";
             getline(cin, spec.nama_07651);
-            cout << "Masukan Jumlah Barang: ";
-            cin >> spec.jumlah_07651;
-            cin.ignore();
             Gudang.push(spec);
             cout << "Barang berhasil ditambahkan." << endl;
             break;
@@ -70,22 +102,13 @@ int main()
             viewBarang_07651(Gudang);
             break;
 
-       case 3:
-            if (!Gudang.empty()) {
-                Barang_07651 spec = Gudang.top();
-                Gudang.pop();
-                cout << "Barang yaag akan diambil:" << endl;
-                cout << "Nama Barang: ";
-                cin >> spec.nama_07651;
-                cout << "Barang berhasil di ambil";
-            } else {
-                cout << "Barang yang anda maksud tidak dapat di temukan." << endl;
-            }
+        case 3:
+            ambilBarang(Gudang);
             break;
 
         case 4:
-        cout << "Program selesai";
-        break;
+            cout << "Program selesai";
+            break;
         default:
             cout << "Pilihan Yang anda pilih tidak ada.";
             break;

@@ -35,40 +35,40 @@ void viewBarang_07651(stack<Barang_07651> s)
     }
 }
 
-void ambilBarang(stack<Barang_07651>& Gudang){
-    if(!Gudang.empty()) {
+void ambilBarang(stack<Barang_07651>& Gudang) {
+    if (!Gudang.empty()) {
         string namaBarang;
-
-        cin.ignore();
-        cout << "Masukan nama barang yang akan di ambil: ";
+    
+        cin.ignore(); 
+        cout << "Masukkan nama barang yang akan diambil: ";
         getline(cin, namaBarang);
 
         bool found = false;
         stack<Barang_07651> temp;
-        
-        while(!Gudang.empty()){
-            Barang_07651 spec = Gudang.top();
-            Gudang.pop();
 
-            if(spec.nama_07651 == namaBarang){
-                cout << "Barang " << spec.nama_07651 << "Berhasil di ambil. ";
+        while (!Gudang.empty()) {
+            Barang_07651 spec = Gudang.top();
+            if (spec.nama_07651 == namaBarang) {
+                cout << "Barang " << spec.nama_07651 << " berhasil diambil." << endl;
                 found = true;
-                break;  
             } else {
                 temp.push(spec);
             }
+            Gudang.pop();
         }
 
-        while(!Gudang.empty()){
+        while (!temp.empty()) {
             Gudang.push(temp.top());
             temp.pop();
         }
 
-        if(!found) {
-            cout << "Barang yang anda cari tidak ada";
+        if (!found) {
+            cout << "Barang dengan nama " << namaBarang << " tidak ditemukan dalam gudang." << endl;
         }
+    } else {
+        cout << "Gudang kosong. Tidak ada barang yang bisa diambil." << endl;
     }
-} 
+}
 
 int main()
 {

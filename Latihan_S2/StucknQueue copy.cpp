@@ -17,15 +17,23 @@ void lihatKalimat(stack<Keranjang> a)
         return;
     };
 
+    stack<Keranjang> tempStack;
     cout << "Isi keranjang adalah ";
-    string hasil = "";
-    while (!a.empty())
-    {
-        hasil = a.top().Kalimat + hasil;
+    while (!a.empty()) {
+        tempStack.push(a.top());
         a.pop();
-    };
+    }
 
-    cout << hasil << endl;
+   cout << "Bottom -> ";
+    while (!tempStack.empty()) {
+        cout << tempStack.top().Kalimat;
+        a.push(tempStack.top());
+        tempStack.pop();
+        if (!tempStack.empty()) {
+            cout << endl << "        ";
+        }
+    }
+    cout << endl << "Top -> " << a.top().Kalimat << endl;
 };
 
 int main()
@@ -78,7 +86,7 @@ int main()
             if (!isiKeranjang.empty())
             {
                 isiKeranjang.pop();
-                cout << "Huruf Paling atas sudah di hapus";
+                cout << "Huruf Paling atas sudah di hapus" << endl;
             }
             else
             {

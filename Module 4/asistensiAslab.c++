@@ -180,7 +180,7 @@ void urutkanDataMahasiswa(dataMahasiswa* head, bool ascending, bool byNama){
             urutkan = temp;
         } else {
             dataMahasiswa* current = urutkan;
-            while(current->next != nullptr && (ascending ? (byNama ? temp->nama > current->next->nama : temp->totalAkhir > current->next->totalAkhir) : (byNama ? temp->nama < current->next->nama : temp->totalAkhir < current->next->totalAkhir))){
+            while(current->next != nullptr && ((ascending && (byNama ? current->nama >= temp->nama : current->NPM >= temp->next->NPM)) || (!ascending && (byNama ? current->nama <= temp->next->nama : current->NPM <= temp->next->NPM)))){
                 current = current->next;
             }
             temp->next = current->next;

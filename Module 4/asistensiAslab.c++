@@ -102,20 +102,119 @@ void updateDataMahasiswa(dataMahasiswa* head, const string& NPM, const string& n
     cout << "Data Mahasiswa dengan NPM " << NPM << " tidak ditemukan." << endl;
 };
 
-void cariDataMahasiswa(dataMahasiswa* head, const string& NPM, const string& nama){
+void searchByNama(dataMahasiswa* head, const string& nama){
     dataMahasiswa* temp = head;
-            cout << left << setw(5) << "No" << setw(20) << "Nama" << setw(15) << "NPM" << setw(10) << "NTS" << setw(10) << "NAS" << setw(15) << "Total Akhir" << setw(10) << "Grade" << endl;
+    bool found = false;
+    cout << left << setw(5) << "No" << setw(20) << "Nama" << setw(15) << "NPM" << setw(10) << "NTS" << setw(10) << "NAS" << setw(15) << "Total Akhir" << setw(10) << "Grade" << endl;
+    cout << "--------------------------------------------------------------------------------" << endl;
     int no = 1;
     while(temp != nullptr){
-        if((nama.empty() || temp -> nama == nama) && (NPM.empty() || temp -> NPM == NPM)){
+        if(temp -> nama == nama){
+            cout << left << setw(5) << no++ << setw(20) << temp->nama << setw(15) << temp->NPM << setw(10) << temp->NTS << setw(10) << temp->NAS << setw(15) << temp->totalAkhir << setw(10) << temp->grade << endl;
+            found = true;
+            break;
+        }
+        temp = temp -> next;
+    }
+    if(!found){
+        cout << "Mahasiswa dengan Nama "<< nama << " tidak di temukan" << endl;
+    }
+}
+
+void searchByNPM(dataMahasiswa* head, const string& NPM){
+    dataMahasiswa* temp = head;
+    bool found = false;
+            cout << left << setw(5) << "No" << setw(20) << "Nama" << setw(15) << "NPM" << setw(10) << "NTS" << setw(10) << "NAS" << setw(15) << "Total Akhir" << setw(10) << "Grade" << endl;
+            cout << "--------------------------------------------------------------------------------" << endl;
+    int no = 1;
+    while(temp != nullptr){
+        if(temp -> NPM == NPM){
         cout << left << setw(5) << no++ << setw(20) << temp->nama << setw(15) << temp->NPM << setw(10) << temp->NTS << setw(10) << temp->NAS << setw(15) << temp->totalAkhir << setw(10) << temp->grade << endl;
+            found = true;
+            break;
         }
         temp = temp->next;
-        cout << "Data Mahasiswa tidak ditemukan." << endl;
-    };
+    }
+    if(!found){
+        cout << "Mahasiswa dengan Nama "<< NPM << " tidak di temukan" << endl;
+    }
 };
 
-// garek fitur utama aseceding dan descending
+
+void cariDataMahasiswa(dataMahasiswa* head){
+    int pilihan;
+    cout << "1. Cari berdasarkan Nama" << endl; 
+    cout << "2. Cari berdasarkan NPM" << endl;
+    cout << "Masukkan Pilihan: ";
+    cin >> pilihan;
+
+    if(pilihan == 1){
+        string nama;
+        cout << "Masukkan Nama Mahasiswa: ";
+        cin.ignore();
+        getline(cin, nama);
+        searchByNama(head, nama);
+    } else if(pilihan == 2){
+        string NPM;
+        cout << "Masukkan NPM Mahasiswa: ";
+        cin >> NPM;
+        searchByNPM(head, NPM);
+    } else {
+        cout << "Pilihan tidak valid." << endl;
+    }
+}
+
+// garek fitur utama aseceding dan descending iki seng wangel 🤧🤧
+void urutkanDataMahasiswa(dataMahasiswa* head, bool ascending, bool byNama){
+    if(head == nullptr || head->next == nullptr){
+        return;
+    }
+
+    dataMahasiswa* urutkan = nullptr;
+    dataMahasiswa* temp = head;
+    while(temp != nullptr){
+        dataMahasiswa* next = temp->next;
+
+        if(urutkan == nullptr || (ascending ? (byNama ? temp->nama < urutkan->nama : temp->totalAkhir < urutkan->totalAkhir) : (byNama ? temp->nama > urutkan->nama : temp->totalAkhir > urutkan->totalAkhir))){
+            temp->next = urutkan;
+            urutkan = temp;
+        } else {
+            dataMahasiswa* current = urutkan;
+            while(current->next != nullptr && (ascending ? (byNama ? temp->nama > current->next->nama : temp->totalAkhir > current->next->totalAkhir) : (byNama ? temp->nama < current->next->nama : temp->totalAkhir < current->next->totalAkhir))){
+                current = current->next;
+            }
+            temp->next = current->next;
+            current->next = temp;
+        }
+        temp = next;
+    }
+    head = urutkan;
+}
+
+void urutkanDataMahasiswa(dataMahasiswa* head){
+    int pilihan;
+    cout << "Urutkan data berdasarkan: " << endl;
+    cout << "1. Nama (Ascending)" << endl;
+    cout << "2. Nama (Descending)" << endl;
+    cout << "3. NPM" << endl;
+    cin >> pilihan;
+
+    switch(pilihan){
+        case 1:
+            urutkanDataMahasiswa(head, true, true);
+            break;
+        case 2:
+            urutkanDataMahasiswa(head, false, true);
+            break;
+        case 3:
+            urutkanDataMahasiswa(head, true, false);
+            break;
+        default:
+            cout << "Pilihan tidak valid." << endl;
+            break;
+    
+    };
+};
 
 
 int main() {
@@ -129,7 +228,8 @@ int main() {
         cout << "3. Hapus Data Mahasiswa" << endl;
         cout << "4. Update Data Mahasiswa" << endl;
         cout << "5. Cari Data Mahasiswa" << endl;
-        cout << "7. Keluar" << endl;
+        cout << "6. Urutkan Data Mahasiswa" << endl;
+        cout << "0. Keluar" << endl;
         cout << "Masukkan Pilihan: ";
         cin >> pilihan;
 
@@ -169,21 +269,19 @@ int main() {
                 updateDataMahasiswa(head, NPM, nama, NTS, NAS);
                 break;
             case 5:
-                cout << "Masukkan NPM Mahasiswa: ";
-                cin >> NPM;
-                cout << "Masukkan Nama Mahasiswa: ";
-                cin.ignore();
-                getline(cin, nama);
-                cariDataMahasiswa(head, NPM, nama);
+                cariDataMahasiswa(head);
+                break;
+            case 6:
+                urutkanDataMahasiswa(head);
                 break;   
-            case 7:
-                cout << "Program selesai." << endl;
+            case 0:
+                cout << "Program selesai. 🤧🤧" << endl;
                 break;
             default:
                 cout << "Pilihan tidak valid." << endl;
                 break;
         }
-    } while (pilihan != 7);
+    } while (pilihan != 0);
 
     return 0;
 }

@@ -115,7 +115,6 @@ void UrutkanShellsort_07651() {
     }
     temp->next = nullptr;
     delete[] array;
-
 }
 
 void sequentialSearch_07651(string nama) {

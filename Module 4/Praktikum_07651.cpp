@@ -128,7 +128,7 @@ void sequentialSearch_07651(string nama) {
             cout << "Harga Barang: " << temp->harga_07651 << endl;
             found = true;
             break;
-        }
+        }  
         temp = temp->next;
     }
     if(!found) {
@@ -208,7 +208,7 @@ int main() {
             cout << "Pilihan yang anda masukan tidak ada." << endl;
             break;
         }
-    } while (pilihan != 6);
+    } while (pilihan != 7);
     
     return 0;
 }

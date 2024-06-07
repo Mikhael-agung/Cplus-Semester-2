@@ -56,6 +56,7 @@ void tampilkanDataMahasiswa(dataMahasiswa* head) {
     dataMahasiswa* temp = head;
     int no = 1;
 
+    cout << "Daftar Mahasiswa" << endl;
     cout << left << setw(5) << "No" << setw(20) << "Nama" << setw(15) << "NPM" << setw(10) << "NTS" << setw(10) << "NAS" << setw(15) << "Total Akhir" << setw(10) << "Grade" << endl;
     cout << "--------------------------------------------------------------------------------" << endl;
     while (temp != nullptr) {
@@ -165,49 +166,56 @@ void cariDataMahasiswa(dataMahasiswa* head){
 }
 
 // garek fitur utama aseceding dan descending iki seng wangel 🤧🤧
-void urutkanDataMahasiswa(dataMahasiswa* head, bool ascending, bool byNama){
+void urutkanDataMahasiswa(dataMahasiswa*& head, bool ascending, bool byNama){
     if(head == nullptr || head->next == nullptr){
         return;
     }
 
     dataMahasiswa* urutkan = nullptr;
-    dataMahasiswa* temp = head;
-    while(temp != nullptr){
-        dataMahasiswa* next = temp->next;
 
-        if(urutkan == nullptr || (ascending ? (byNama ? temp->nama < urutkan->nama : temp->totalAkhir < urutkan->totalAkhir) : (byNama ? temp->nama > urutkan->nama : temp->totalAkhir > urutkan->totalAkhir))){
-            temp->next = urutkan;
-            urutkan = temp;
-        } else {
-            dataMahasiswa* current = urutkan;
-            while(current->next != nullptr && ((ascending && (byNama ? current->nama >= temp->nama : current->NPM >= temp->next->NPM)) || (!ascending && (byNama ? current->nama <= temp->next->nama : current->NPM <= temp->next->NPM)))){
-                current = current->next;
+    dataMahasiswa* current = head;
+    while(current != nullptr){
+        dataMahasiswa* next = current->next;
+        
+        if(urutkan == nullptr || (ascending && (byNama ? current->nama < urutkan->nama : current->NPM < urutkan->NPM)) || (!ascending && (byNama ? current->nama > urutkan->nama : current->NPM > urutkan-> NPM))){
+            current->next = urutkan;
+            urutkan = current;
+        }else{
+            dataMahasiswa* temp = urutkan;
+            while (temp->next != nullptr && 
+                   ((ascending && (byNama ? current->nama >= temp->next->nama : current->NPM >= temp->next->NPM)) ||
+                   (!ascending && (byNama ? current->nama <= temp->next->nama : current->NPM <= temp->next->NPM)))) {
+                temp = temp->next;
             }
-            temp->next = current->next;
-            current->next = temp;
+            current->next = temp->next;
+            temp->next = current;
         }
-        temp = next;
+        current = next;
     }
     head = urutkan;
-}
+} 
 
-void urutkanDataMahasiswa(dataMahasiswa* head){
+void urutkanDataMahasiswa(dataMahasiswa*& head){
     int pilihan;
     cout << "Urutkan data berdasarkan: " << endl;
     cout << "1. Nama (Ascending)" << endl;
     cout << "2. Nama (Descending)" << endl;
     cout << "3. NPM" << endl;
+    cout << "Masukkan Pilihan: ";
     cin >> pilihan;
 
     switch(pilihan){
         case 1:
             urutkanDataMahasiswa(head, true, true);
+            tampilkanDataMahasiswa(head);
             break;
         case 2:
             urutkanDataMahasiswa(head, false, true);
+            tampilkanDataMahasiswa(head);
             break;
         case 3:
             urutkanDataMahasiswa(head, true, false);
+            tampilkanDataMahasiswa(head);
             break;
         default:
             cout << "Pilihan tidak valid." << endl;

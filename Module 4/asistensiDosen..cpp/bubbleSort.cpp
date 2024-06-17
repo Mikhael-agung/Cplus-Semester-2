@@ -30,27 +30,27 @@ void viewList(Node* head){
     cout << endl;   
 };
 
-void bubbleSort(Node* head, bool ascending) {
-    if (head == nullptr) return;
+// void bubbleSort(Node* head, bool ascending) {
+//     if (head == nullptr) return;
 
-    bool swapped;
-    Node* ptr1;
-    Node* lptr = nullptr;
+//     bool swapped;
+//     Node* ptr1;
+//     Node* lptr = nullptr;
 
-    do {
-        swapped = false;
-        ptr1 = head;
+//     do {
+//         swapped = false;
+//         ptr1 = head;
 
-        while (ptr1->next != lptr) {
-            if (ascending ? ptr1->data > ptr1->next->data : ptr1->data < ptr1->next->data) {
-                swap(ptr1->data, ptr1->next->data);
-                swapped = true;
-            }
-            ptr1 = ptr1->next;
-        }
-        lptr = ptr1;
-    } while (swapped);
-}
+//         while (ptr1->next != lptr) {
+//             if (ascending ? ptr1->data > ptr1->next->data : ptr1->data < ptr1->next->data) {
+//                 swap(ptr1->data, ptr1->next->data);
+//                 swapped = true;
+//             }
+//             ptr1 = ptr1->next;
+//         }
+//         lptr = ptr1;
+//     } while (swapped);
+// }
 
 void bubbleSortWithFlag(Node* head, bool ascending) {
     if (head == nullptr) return;

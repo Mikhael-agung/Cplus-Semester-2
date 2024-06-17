@@ -111,7 +111,7 @@ int main() {
             default:
                 cout << "Pilihan tidak valid" << endl;
                 break;
-            }
+        }
     } while (pilihan != 3);
     return 0;
 }

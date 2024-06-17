@@ -54,6 +54,7 @@ void bubbleSort(Node* head, bool ascending) {
             ptr1 = ptr1->next;
         }
         lptr = ptr1;
+        printList(head);
     } while (swapped);
 }
 
@@ -73,13 +74,14 @@ void selectionSort(Node* head, bool ascending) {
 
         swap(temp->data, minMax->data);
         temp = temp->next;
+        printList(head);    
     }
 }
 
 // Insertion Sort untuk linked list
-void insertionSort(Node** head_ref, bool ascending) {
+void insertionSort(Node*& head, bool ascending) {
     Node* sorted = nullptr;
-    Node* current = *head_ref;
+    Node* current = head;
 
     while (current) {
         Node* next = current->next;
@@ -95,8 +97,10 @@ void insertionSort(Node** head_ref, bool ascending) {
             temp->next = current;
         }
         current = next;
+        printList(sorted);
+        
     }
-    *head_ref = sorted;
+    head = sorted;
 }
 
 // Merge dua sublist untuk merge sort
@@ -155,16 +159,17 @@ void mergeSort(Node** headRef, bool ascending) {
 
 int main() {
     Node* head = nullptr;
-    int choice, value, sortChoice;
+    int choice, sortChoice;
     bool ascending;
-        
+    int data[] = {2, 10, 3, 1, 17, 25, 16, 9, 18};
+    size_t n = sizeof(data) / sizeof(data[0]);
 
-        cout << "masukan inputa anda: ";
-    while (true) {
-        cin >> value;
-        if (value == -1) break;
-        append(&head, value);   
+    for (size_t i = 0; i < n; i++) {
+        append(&head, data[i]);
     }
+    
+    cout << "Data asli: ";
+    printList(head);
 
     do {
         cout << "1. Bubble Sort linked list\n";
@@ -176,8 +181,6 @@ int main() {
         cout << "Masukkan pilihan: ";
         cin >> choice;
 
-        if (choice == 7) break;
-
         switch (choice) {
             case 1:
                 cout << "1. Ascending\n";
@@ -186,7 +189,10 @@ int main() {
                 cin >> sortChoice;
                 ascending = (sortChoice == 1);
                 bubbleSort(head, ascending);
+                cout << "Hasil dari perngurutan: ";
+                printList(head);
                 cout << "Linked list telah diurutkan dengan Bubble Sort.\n";
+                cout << endl;
                 break;
             case 2:
                 cout << "1. Ascending\n";
@@ -195,6 +201,8 @@ int main() {
                 cin >> sortChoice;
                 ascending = (sortChoice == 1);
                 selectionSort(head, ascending);
+                cout << "Hasil dari pengurutan: ";
+                printList(head);
                 cout << "Linked list telah diurutkan dengan Selection Sort.\n";
                 break;
             case 3:
@@ -203,7 +211,9 @@ int main() {
                 cout << "Masukkan pilihan: ";
                 cin >> sortChoice;
                 ascending = (sortChoice == 1);
-                insertionSort(&head, ascending);
+                insertionSort(head, ascending);
+                cout << "hasil dari pengurutan: ";
+                printList(head);
                 cout << "Linked list telah diurutkan dengan Insertion Sort.\n";
                 break;
             case 4:
@@ -213,17 +223,23 @@ int main() {
                 cin >> sortChoice;
                 ascending = (sortChoice == 1);
                 mergeSort(&head, ascending);
+                cout << "Hasil dari pengurutan: ";
+                printList(head);
                 cout << "Linked list telah diurutkan dengan Merge Sort.\n";
                 break;
             case 5:
                 cout << "Isi linked list: ";
                 printList(head);
                 break;
+            
+            case 6: 
+                cout << "Keluar dari program.\n";
+                break;
             default:
                 cout << "Pilihan tidak valid!\n";
                 break;
         }
-    } while (true);
+    } while (choice != 6);
 
     return 0;
 }

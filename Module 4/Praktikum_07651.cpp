@@ -115,7 +115,25 @@ void UrutkanShellsort_07651() {
     }
     temp->next = nullptr;
     delete[] array;
+}
 
+void sequentialSearch_07651(string nama) {
+    Barang_07651* temp = head_07651;
+    bool found = false;
+    while(temp != nullptr) {
+        if(temp->nama_07651 == nama) {
+            cout << "Barang ditemukan." << endl;
+            cout << "Nama Barang: " << temp->nama_07651 << endl;
+            cout << "Jumlah Barang: " << temp->jumlah_07651 << endl;
+            cout << "Harga Barang: " << temp->harga_07651 << endl;
+            found = true;
+            break;
+        }  
+        temp = temp->next;
+    }
+    if(!found) {
+        cout << "Barang tidak ditemukan." << endl;
+    }
 }
 
 int main() {
@@ -131,7 +149,8 @@ int main() {
         cout << "3. Tampilkan barang" << endl;
         cout << "4. Perbarui barang" << endl;
         cout << "5. Urutkan Barang" << endl;
-        cout << "6. Keluar" << endl;
+        cout << "6. Cari Barang" << endl;
+        cout << "7. Keluar" << endl;
         cout << "Pilihan: ";
         cin >> pilihan;
 
@@ -176,13 +195,20 @@ int main() {
             break;
         
         case 6:
+            cout << "Masukan Nama Barang yang ingin di cari: ";
+            cin.ignore();
+            getline(cin, nama);
+            sequentialSearch_07651(nama);
+            break;
+
+        case 7:
             cout << "Program selesai." << endl;
             break;
         default:
             cout << "Pilihan yang anda masukan tidak ada." << endl;
             break;
         }
-    } while (pilihan != 6);
+    } while (pilihan != 7);
     
     return 0;
 }
